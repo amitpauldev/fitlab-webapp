@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Clock3, Flame, Star } from "lucide-react";
 import { Exercise } from "@/types/workout";
+import { ViewTransition } from "react";
 
 const WorkoutCard = ({ workout }: { workout: Exercise }) => {
 	const {
@@ -20,14 +21,16 @@ const WorkoutCard = ({ workout }: { workout: Exercise }) => {
 		<article className="w-full max-w-full overflow-hidden rounded-2xl border border-white/10 bg-card text-white shadow-lg md:max-w-lg">
 			{/* Image */}
 			<div className="relative aspect-[16/9] overflow-hidden">
-				<Image
-					src={image}
-					alt={name}
-					width={600}
-					height={300}
-					loading="eager"
-					className="object-cover"
-				/>
+				<ViewTransition name={`workout-image-${workout.id}`}>
+					<Image
+						src={image}
+						alt={name}
+						width={600}
+						height={300}
+						loading="eager"
+						className="h-full w-full object-cover"
+					/>
+				</ViewTransition>
 			</div>
 
 			{/* Content */}

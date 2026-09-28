@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Exercise } from "@/types/workout";
 import CardActionsButton from "./components/CardActionsButton";
+import { ViewTransition } from "react";
 
 export const generateStaticParams = async () => {
 	const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
@@ -46,14 +47,16 @@ const WorkoutDetailsPage = async ({
 			<div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
 				{/* Image */}
 				<div className="relative min-h-[400px] overflow-hidden rounded-xl lg:min-h-[540px]">
-					<Image
-						src={image}
-						alt={name}
-						fill
-						priority
-						className="object-cover"
-						sizes="(max-width: 1024px) 100vw, 50vw"
-					/>
+					<ViewTransition name={`workout-image-${workout.id}`}>
+						<Image
+							src={image}
+							alt={name}
+							fill
+							priority
+							className="object-cover"
+							sizes="(max-width: 1024px) 100vw, 50vw"
+						/>
+					</ViewTransition>
 				</div>
 
 				{/* Workout information */}
